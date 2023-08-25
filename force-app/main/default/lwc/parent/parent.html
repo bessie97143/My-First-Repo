@@ -1,0 +1,22 @@
+<template>
+    <div class="slds-box slds-p-around_none">
+        <lightning-card title="Parent" icon-name="standard:person_account">
+            <div class="slds-align_absolute-center" onchildclick={handleChildClick}>    
+                <table >
+                    <tbody>
+                        <tr>
+                            <td>Child One : {childOneSelect}</td>
+                            <td>Child Two : {childTwoSelect}</td>
+                            <td>Child Three : {childThreeSelect}</td>
+                        </tr>
+                        <tr>
+                            <td><c-child-one></c-child-one></td>
+                            <td><c-child-two></c-child-two></td>
+                            <td><c-child-three></c-child-three></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </div>
+</template>

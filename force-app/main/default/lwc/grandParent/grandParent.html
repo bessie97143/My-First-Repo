@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-box">
+        <lightning-card title="Grand Parent" icon-name="standard:omni_supervisor">
+            <div class="slds-align_absolute-center" onchildclick={handleChildClick}>
+                <table class="slds-table">
+                    <tbody>
+                        <tr>
+                            <td>{noOfSelectedChilds} of 3 Children selecteted</td>
+                            <td>
+                                <lightning-button variant=brand label="Reset All" onclick={handleClick}></lightning-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><c-parent></c-parent></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </div>
+</template>
