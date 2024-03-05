@@ -1,6 +1,7 @@
 import { LightningElement } from 'lwc';
 
 export default class SimpleCalculator extends LightningElement {
+    
     calcExpression = '';
     calResult = 0;
     displayResult = 0;
