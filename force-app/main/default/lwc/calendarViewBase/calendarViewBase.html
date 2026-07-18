@@ -1,0 +1,184 @@
+<template>
+    <lightning-card title="Offer Calendar">
+        
+        <!-- View Switch -->
+         <div class="slds-grid">
+            <div class="slds-col slds-has-flexi-truncate">
+                <div class="slds-m-around_medium">
+                    <lightning-button-group>
+                        <lightning-button
+                            label="Month"
+                            variant={monthVariant}
+                            onclick={showMonthView}>
+                        </lightning-button>
+                        <lightning-button
+                            label="Year"
+                            variant={yearVariant}
+                            onclick={showYearView}>
+                        </lightning-button>
+                    </lightning-button-group>
+                    <!-- Dynamic Month/Year Label -->
+                    <span class="calendar-header slds-m-horizontal_small">
+                        {headerLabel}
+                    </span>
+                </div>
+            </div>
+            <div class="slds-col slds-no-flex slds-grid slds-grid_vertical-align-center">
+                <div class="slds-show_inline-block">
+                    <lightning-button-icon icon-name="utility:left"  alternative-text="left" class="slds-m-around_xxx-small" onclick={handlePrevious}></lightning-button-icon>
+                    <lightning-button label="Current" class="slds-m-around_xxx-small" onclick={handleCurrent}></lightning-button>
+                    <lightning-button-icon icon-name="utility:right" size="xxx-small" alternative-text="right" class="slds-m-around_xxx-small" onclick={handleNext}></lightning-button-icon>
+                </div>
+                <div>
+                    <lightning-button-icon
+                        icon-name="utility:filterList"
+                        alternative-text="Filter"
+                        title="Filter"
+                        class="slds-m-left_xxx-small slds-m-right_x-small"
+                        onclick={toggleFilterPanel}>
+                    </lightning-button-icon>
+                </div>
+            </div>
+         </div>
+         <div class={containerClass}>
+            <div class="left-section">
+                <div class="slds-m-top_medium slds-scrollable_x slds-scrollable_y table-scroll">
+                    <table class="slds-table slds-table_col-bordered slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout custom-calendar-table">
+                        
+                        <colgroup>
+                            <col class="col-catalogue" />
+                            <template for:each={columns} for:item="col">
+                                <col key={col.key} class="col-day" />
+                            </template>
+                        </colgroup>
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class=" slds-p-around_small slds-text-heading_small" title="Offer Catalogues">
+                                        Offer Catalogues
+                                    </div>
+                                </th>
+                                <template for:each={columns} for:item="col">
+                                    <th key={col.key}>
+                                        <div class="slds-col slds-align_absolute-center lwc-timeslottable" >{col.label}</div>
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <template for:each={rows} for:item="row">
+                                <tr key={row.recordId}>
+                                    <td class="record-name sticky-col">
+                                        <a data-id={row.recordId} 
+                                            onclick={handleNavigate}>
+                                                {row.name}
+                                        </a>
+                                    </td>
+        
+                                    <template for:each={row.cells} for:item="cell">
+                                        <td key={cell.key} class="cell">
+                                            <template if:true={cell.filled}>
+                                                <div class={cell.className}></div>
+                                            </template>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination-container">
+                    <div class="pagination-controls">
+                        <lightning-button-icon 
+                            icon-name="utility:chevronleft"
+                            onclick={handlePrevPage}
+                            disabled={disablePrevious}>
+                        </lightning-button-icon>
+                        <span class="slds-m-horizontal_small">
+                            Page {currentPage} of {totalPages}
+                        </span>
+                        <lightning-button-icon 
+                            icon-name="utility:chevronright"
+                            onclick={handleNextPage}
+                            disabled={disableNext}>
+                        </lightning-button-icon>
+                    </div>
+                    <div class="record-count">
+                        <span class="record-count">
+                            {recordCount} {objectPluralLabel}
+                        </span>
+                    </div>
+                    <div class="page-size slds-grid slds-grid_vertical-align-center">
+                        <span class="slds-m-right_small">Display Records Per Page:</span>
+                        <lightning-combobox
+                            value={pageSize}
+                            options={pageSizeOptions}
+                            onchange={handlePageSizeChange}
+                            variant="label-hidden"
+                            class="page-size-combobox">
+                        </lightning-combobox>
+
+                    </div>
+
+                </div> 
+            </div>
+            <template if:true={showFilterPanel}>
+                <div class="filter-container">
+                    <div class="calendarSidebar slds-grid slds-grid_vertical slds-box">
+                        <aside class="filter-sidebar">
+                            <div class="filter-header">
+                                <span class="slds-text-heading_small">Filters</span>
+                                <lightning-button-icon
+                                    icon-name="utility:close"
+                                    alternative-text="Close"
+                                    onclick={toggleFilterPanel}>
+                                </lightning-button-icon>
+                            </div>
+                            <div class="filter-body">
+                                <template for:each={normalizedFilters} for:item="filter">
+                                    <div key={filter.fieldApiName} class="slds-m-bottom_small">
+                                        <template if:true={filter.isPicklist}>
+                                            <lightning-combobox
+                                                label={filter.label}
+                                                data-field={filter.fieldApiName}
+                                                options={filter.options}
+                                                value={filter.value}
+                                                onchange={handleFilterChange}>
+                                            </lightning-combobox>
+                                        </template>
+                                        <template if:true={filter.isDate}>
+                                            <lightning-input
+                                                type="date"
+                                                label={filter.label}
+                                                data-field={filter.fieldApiName}
+                                                value={filter.value}
+                                                onchange={handleFilterChange}>
+                                            </lightning-input>
+                                        </template>
+                                        <template if:true={filter.isText}>
+                                            <lightning-input
+                                                type="text"
+                                                label={filter.label}
+                                                data-field={filter.fieldApiName}
+                                                value={filter.value}
+                                                onchange={handleFilterChange}>
+                                            </lightning-input>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="filter-footer">
+                                <lightning-button label="Clear" onclick={handleClearFilters}></lightning-button>
+                                <lightning-button label="Apply" variant="brand" onclick={applyFilters}></lightning-button>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </template>
+         </div>
+        
+        
+    </lightning-card>
+</template>
