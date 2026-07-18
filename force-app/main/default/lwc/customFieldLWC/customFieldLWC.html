@@ -1,0 +1,17 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+            <div class="slds-form-element slds-m-left_small slds-m-right_small">
+                <div class="slds-form-element__label">
+                    <span>{fieldLabel}</span>
+                </div>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static slds-grow word-break-ie11" if:true={fieldValue}>
+                        {fieldValue}
+                    </span>
+                </div>
+                <div class="slds-m-top_xxx-small slds-border_bottom"></div>
+            </div>
+        </div>
+    </div>
+</template>

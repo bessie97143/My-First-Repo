@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Select sports and teams">
+        <lightning-dual-listbox 
+            name="Sports"
+            label="Select sports"
+            source-label="Available sports"
+            selected-label="Selected sports"
+            options={sportsOptions}
+            value={selectedSports}
+            onchange={handleSportsChange}
+        >
+        </lightning-dual-listbox>
+        <lightning-dual-listbox 
+            name="Teams"
+            label="Select Teams"
+            source-label="Available teams"
+            selected-label="Selected teams"
+            options={sportsTeamOptions}
+            value={selectedTeams}
+            onchange={handleTeamChange}
+        >
+        </lightning-dual-listbox>
+        <div class="slds-box" >
+            <p>Selected Teams are: {selectedTeams}</p>
+        </div>
+    </lightning-card>
+    
+</template>
