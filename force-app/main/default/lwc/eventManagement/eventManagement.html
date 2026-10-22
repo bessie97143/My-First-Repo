@@ -1,0 +1,20 @@
+<template>
+    <div class="flex-container01">
+        <!--
+        <div>
+            <img src="https://qantas--baudev--c.sandbox.vf.force.com/resource/1521233514000/Qantas_Logo" alt="Qantas Logo">
+        </div>
+        -->
+        <div>
+            <p>Hey {contactid}, you have been invited for {campaignid} event. Could you please confirm your registration for the event?</p>
+        </div>
+        <div>
+            <span  class="flex-container02">
+                <lightning-button variant="destructive" icon-name="utility:close"  label="Reject" title="Reject action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+            </span>
+            <span  class="flex-container02">
+                <lightning-button variant="success" icon-name="utility:success"  label="Accept" title="Accept action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+            </span>
+        </div>
+    </div>
+</template>

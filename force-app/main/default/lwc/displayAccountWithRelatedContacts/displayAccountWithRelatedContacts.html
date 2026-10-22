@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Account with Related Contacts">
+         <lightning-combobox
+            name="progress"
+            label="Select Account"
+            value={selectedAccount}
+            placeholder="Select Progress"
+            options={AccountOptions}
+            onchange={handleAccountChange} >
+        </lightning-combobox>
+
+        <div style="height: 300px;">
+            <lightning-datatable
+                    key-field="Id"
+                    data={contactData}
+                    columns={columns}
+                    onrowaction={handleRowAction}>
+            </lightning-datatable>
+        </div>
+
+    </lightning-card>
+</template>

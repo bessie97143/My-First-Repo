@@ -1,0 +1,12 @@
+.flex-container01 {
+    height: 54vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.flex-container02 {
+    margin-left: 2vw;
+}

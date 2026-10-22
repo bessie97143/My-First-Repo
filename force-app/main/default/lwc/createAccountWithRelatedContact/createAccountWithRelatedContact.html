@@ -1,0 +1,22 @@
+<template>
+    <lightning-card>
+        <lightning-input 
+            type="text" 
+            label="Account Name" 
+            name="accountName"
+            required 
+            onchange={handleInputChange}
+            >
+        </lightning-input>
+        <lightning-combobox
+                name="industry"
+                label="Indutry"
+                value={value}
+                placeholder="Select Progress"
+                options={industryOptions}
+                onchange={handleComboBoxChange} ></lightning-combobox>
+        <lightning-input type="text" name="lastName" label="Contact Last Name" required class="contactLastName" onchange={handleInputChange}></lightning-input>
+        <lightning-input type="text" class="contactEmail" name="email" label="Contact Email" required onchange={handleInputChange}></lightning-input>
+        <lightning-button variant="brand" label="Create Records" onclick={handleCreateRecords} class="slds-m-left_x-small"></lightning-button>
+    </lightning-card>
+</template>

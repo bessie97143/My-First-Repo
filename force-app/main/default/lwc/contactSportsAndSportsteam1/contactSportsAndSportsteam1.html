@@ -1,0 +1,67 @@
+<template>
+    <lightning-card >
+
+        <!-- Sports Selection -->
+        <h3 class="slds-text-heading_small slds-m-bottom_x-small">Choose Sports</h3>
+        <div class="slds-box  slds-m-bottom_medium">
+            <lightning-dual-listbox 
+                name="Sports"
+                source-label="Available Sports"
+                selected-label="Selected Sports"
+                options={sportsOptions}
+                value={selectedSports}
+                onchange={handleSportsChange}>
+            </lightning-dual-listbox>
+        </div>
+
+        <!-- Dynamic Accordion Sections for Teams -->
+        <h3 class="slds-text-heading_small slds-m-bottom_x-small">Choose Teams for Selected Sports</h3>
+        <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+            <template if:true={selectedSports.length}>
+                <lightning-accordion 
+                    allow-multiple-sections-open 
+                    active-section-name="" 
+                    data-id="sport-box" 
+                    name="testing">
+
+                    <template for:each={selectedSportTeamMap} for:item="currentItem">
+                        <lightning-accordion-section 
+                            name={currentItem.sport} 
+                            label={currentItem.sport} 
+                            key={currentItem.sport}>
+
+                            <lightning-dual-listbox 
+                                class="box"
+                                name={currentItem.sport}
+                                source-label="Available Teams"
+                                selected-label="Selected Teams"
+                                options={currentItem.Teams}
+                                value={selectedTeams}
+                                onchange={handleTeamChange}>
+                            </lightning-dual-listbox>
+
+                        </lightning-accordion-section>
+                    </template>
+                </lightning-accordion>
+            </template>
+        </div>
+
+        <!-- Selected Values Display -->
+        <div class="slds-box slds-m-top_medium">
+            <p><strong>Selected Sports:</strong> {selectedSports}</p>
+            <p><strong>Selected Teams:</strong> {selectedTeams}</p>
+        </div>
+
+        <!-- Save Button -->
+        <div class="slds-m-top_medium">
+            <lightning-button 
+                variant="brand" 
+                label="Save" 
+                title="Save Selection" 
+                onclick={handleSave} 
+                class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+
+    </lightning-card>
+</template>

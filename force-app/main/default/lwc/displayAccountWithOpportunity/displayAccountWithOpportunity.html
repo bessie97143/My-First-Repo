@@ -1,0 +1,15 @@
+<template>
+    <lightning-card>
+        This is the Compomnent
+        <div style="height: 300px;">
+        <lightning-datatable
+                key-field="AcctId"
+                data={accountdata}
+                columns={columns}
+                max-row-selection="1"
+                onrowselection={hanldeRowSelection}
+                >
+        </lightning-datatable>
+    </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,19 @@
+<template>
+    <lightning-card>
+        <template lwc:if={isRecordsAvaiable}>
+            <div style="height: 300px;">
+                <lightning-datatable
+                        key-field="Id"
+                        data={data}
+                        show-row-number-column
+                        hide-checkbox-column
+                        columns={columns}
+                        onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </div>
+        </template>
+        <template lwc:else>
+            <p>No accounts</p>
+        </template>
+    </lightning-card>
+</template>

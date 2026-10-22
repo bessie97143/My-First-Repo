@@ -1,0 +1,41 @@
+<template>
+    <lightning-card title="Select sports and teams">
+        <lightning-dual-listbox 
+            name="Sports"
+            label="Select sports"
+            source-label="Available sports"
+            selected-label="Selected sports"
+            options={sportsOptions}
+            value={selectedSports}
+            onchange={handleSportsChange}
+        >
+        </lightning-dual-listbox>
+
+        <template if:true={selectedSports.length} >
+            <lightning-accordion allow-multiple-sections-open active-section-name="" data-id="sport-box" name="testing">
+                <template for:each={selectedSportTeamMap} for:item="currentItem">
+                    <lightning-accordion-section name={currentItem.sport} label={currentItem.sport} key={currentItem.sport}>
+                        <lightning-dual-listbox 
+                            class="box"
+                            name={currentItem.sport}
+                            label="Select Teams"
+                            source-label="Available teams"
+                            selected-label="Selected teams"
+                            options={currentItem.Teams}
+                            value={selectedTeams}
+                            onchange={handleTeamChange}>
+                        </lightning-dual-listbox>
+                    </lightning-accordion-section>
+                </template>
+            </lightning-accordion>
+        </template>
+       
+        <div class="slds-box" >
+            <p>Selected Sports are: {selectedSports}</p>
+            <p>Selected Teams are: {selectedTeams}</p>
+        </div>
+
+        <lightning-button variant="brand" label="Save" title="Primary action" onclick={handleSave} class="slds-m-left_x-small"></lightning-button>
+    </lightning-card>
+    
+</template>

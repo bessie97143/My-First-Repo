@@ -1,0 +1,11 @@
+<template>
+    <lightning-datatable
+        key-field="Id"
+        data={accountsData}
+        columns={columns}
+    >
+    </lightning-datatable>
+    <lightning-button label="Previous"  onclick={handlePrevious} class="slds-m-left_x-small"></lightning-button>
+    {currentPage}/{totalPage}
+    <lightning-button label="Next" onclick={handleNext} class="slds-m-left_x-small"></lightning-button>
+</template>
